@@ -1,11 +1,324 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="EXITCODEONE // SYSTEM INITIALIZED">
+  <main class="page-wrapper">
+    <section class="hero-container">
+      <div class="hud-wrapper">
+        <div class="hud-side left-side">
+          <div class="binary-string">0101...</div>
+          <div class="binary-string indent">0101...</div>
+          <div class="binary-string">0101...</div>
+        </div>
+
+        <div class="core-logo">
+          <div class="frame-corners">
+            <div class="corner tl"></div><div class="corner tr"></div>
+            <div class="corner bl"></div><div class="corner br"></div>
+          </div>
+          <span class="main-letter">E</span>
+        </div>
+
+        <div class="hud-side right-side">
+          <div class="status-text">0101...</div>
+          <div class="status-text highlight">EXITCODE</div>
+          <div class="status-text">ONE</div>
+        </div>
+      </div>
+
+      <div class="branding">
+        <h1 class="glitch-title">EXITCODEONE</h1>
+        <p class="tagline">ARCHITECTURE // DEVOPS // AUTOMATION</p>
+      </div>
+    </section>
+
+    <section class="info-grid">
+      <div class="module-card about">
+        <h2 class="module-title"><span class="prefix">>></span> ABOUT_US</h2>
+        <p class="content">
+          At <span class="text-white">EXITCODEONE</span>, we treat
+          infrastructure as code and downtime as an unacceptable exit status. We
+          specialize in building resilient server architectures that scale
+          horizontally and heal automatically. Our team bridges the gap between
+          complex hardware logic and modern cloud-native deployments.
+        </p>
+      </div>
+
+      <div class="module-card services">
+        <h2 class="module-title">
+          <span class="prefix">>></span> CORE_SERVICES
+        </h2>
+        <ul class="service-list">
+          <li>
+            <span class="bullet">[01]</span>
+            <strong>Infrastructure Design</strong>
+            <p>High-availability clusters and bare-metal provisioning.</p>
+          </li>
+          <li>
+            <span class="bullet">[02]</span>
+            <strong>CI/CD Pipelines</strong>
+            <p>Automated testing, building, and zero-downtime deployment.</p>
+          </li>
+          <li>
+            <span class="bullet">[03]</span>
+            <strong>Security & Hardening</strong>
+            <p>Kernel-level tuning and network isolation protocols.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="terminal-contact">
+      <div class="terminal-window">
+        <div class="terminal-header">
+          <span class="dot"></span><span class="dot"></span><span class="dot"
+          ></span>
+          <span class="title">bash — contact@exitcode.one</span>
+        </div>
+        <div class="terminal-body">
+          <p>
+            <span class="prompt">root@exitcodeone:~$</span> ./get_in_touch.sh
+          </p>
+          <p class="response">Ready to scale? Send your request to:</p>
+          <p>
+            <a href="mailto:hello@exitcode.one" class="terminal-link"
+              >hello@exitcode.one</a>
+          </p>
+          <p>
+            <span class="prompt">root@exitcodeone:~$</span>
+            <span class="cursor">_</span>
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
 </Layout>
+
+<style>
+  .page-wrapper {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    z-index: 10;
+    position: relative;
+  }
+
+  /* --- Hero Adjustments --- */
+  .hero-container {
+    height: 80vh; /* Reduced to leave space for info */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hud-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+    margin-bottom: 2rem;
+  }
+  .hud-side {
+    color: var(--text-dim);
+    font-size: 1.1rem;
+  }
+  .core-logo {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(74, 245, 182, 0.03);
+    border: 1px solid rgba(74, 245, 182, 0.1);
+  }
+  .main-letter {
+    font-size: 5rem;
+    font-weight: bold;
+    text-shadow: 0 0 15px var(--accent-cyan);
+  }
+
+  .frame-corners .corner {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--accent-cyan);
+    box-shadow: 0 0 10px var(--accent-cyan);
+  }
+  .tl {
+    top: -4px;
+    left: -4px;
+    border-right: 0;
+    border-bottom: 0;
+  }
+  .tr {
+    top: -4px;
+    right: -4px;
+    border-left: 0;
+    border-bottom: 0;
+  }
+  .bl {
+    bottom: -4px;
+    left: -4px;
+    border-right: 0;
+    border-top: 0;
+  }
+  .br {
+    bottom: -4px;
+    right: -4px;
+    border-left: 0;
+    border-top: 0;
+  }
+
+  .glitch-title {
+    font-size: 3.5rem;
+    letter-spacing: 0.15em;
+    text-align: center;
+    margin: 0;
+  }
+  .tagline {
+    color: var(--accent-cyan);
+    letter-spacing: 0.2em;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+    text-align: center;
+  }
+
+  /* --- Info Grid --- */
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 5rem;
+  }
+
+  .module-card {
+    background: rgba(13, 31, 37, 0.4);
+    border-left: 2px solid var(--accent-cyan);
+    padding: 1.5rem;
+    backdrop-filter: blur(5px);
+  }
+
+  .module-title {
+    font-size: 1.4rem;
+    color: var(--accent-cyan);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .content {
+    line-height: 1.6;
+    color: var(--text-muted);
+  }
+  .text-white {
+    color: #fff;
+  }
+
+  /* --- Services List --- */
+  .service-list {
+    list-style: none;
+    padding: 0;
+  }
+  .service-list li {
+    margin-bottom: 1.5rem;
+  }
+  .service-list strong {
+    display: block;
+    color: var(--text-primary);
+    margin-bottom: 0.2rem;
+  }
+  .service-list p {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    margin: 0;
+  }
+  .bullet {
+    color: var(--accent-cyan);
+    margin-right: 0.5rem;
+  }
+
+  /* --- Terminal Contact --- */
+  .terminal-contact {
+    padding-bottom: 5rem;
+  }
+  .terminal-window {
+    background: #000;
+    border: 1px solid var(--bg-core);
+    border-radius: 6px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+  }
+
+  .terminal-header {
+    background: #1a1a1a;
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .terminal-header .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #333;
+  }
+  .terminal-header .title {
+    font-size: 0.8rem;
+    color: #666;
+    margin-left: 1rem;
+  }
+
+  .terminal-body {
+    padding: 1.5rem;
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+  .prompt {
+    color: var(--accent-cyan);
+  }
+  .response {
+    color: #888;
+    margin: 0.5rem 0;
+  }
+  .terminal-link {
+    color: #fff;
+    text-decoration: underline;
+  }
+
+  .cursor {
+    display: inline-block;
+    width: 8px;
+    height: 18px;
+    background: var(--accent-cyan);
+    animation: blink 1s infinite;
+    vertical-align: middle;
+  }
+
+  @keyframes blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+
+  /* --- Mobile Optimization --- */
+  @media (max-width: 850px) {
+    .info-grid {
+      grid-template-columns: 1fr;
+    }
+    .hud-wrapper {
+      gap: 2rem;
+    }
+    .glitch-title {
+      font-size: 2.5rem;
+    }
+  }
+</style>

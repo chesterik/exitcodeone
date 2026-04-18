@@ -1,23 +1,107 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "EXITCODEONE | Infrastructure & DevOps",
+  description = "Advanced Server Architecture and DevOps Automation",
+} = Astro.props;
+---
+
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="terminal-overlay"></div>
+    <div class="grid-perspective"></div>
+    <slot />
+  </body>
 </html>
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
+<style is:global>
+  :root {
+    --bg-black: #050a0d;
+    --bg-core: #0d1f25;
+    --accent-cyan: #4af5b6;
+    --text-primary: #ffffff;
+    --text-dim: rgba(74, 245, 182, 0.5);
+    --font-main: "Share Tech Mono", monospace;
+  }
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-black);
+    color: var(--text-primary);
+    font-family: var(--font-main);
+    overflow-x: hidden;
+  }
+
+  body {
+    background: radial-gradient(
+      circle at center,
+      var(--bg-core) 0%,
+      var(--bg-black) 100%
+    );
+  }
+
+  /* CRT Scanline Effect */
+  .terminal-overlay {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(
+      rgba(18, 16, 16, 0) 50%,
+      rgba(0, 0, 0, 0.1) 50%
+    );
+    background-size: 100% 4px;
+    z-index: 100;
+    pointer-events: none;
+    opacity: 0.2;
+  }
+
+  /* Floor Grid Perspective */
+  .grid-perspective {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 40vh;
+    background-image:
+      linear-gradient(var(--accent-cyan) 1px, transparent 1px),
+      linear-gradient(90deg, var(--accent-cyan) 1px, transparent 1px);
+    background-size: 60px 60px;
+    transform: perspective(500px) rotateX(65deg);
+    transform-origin: bottom;
+    opacity: 0.1;
+    mask-image: linear-gradient(to top, rgba(0, 0, 0, 1), transparent);
+    z-index: -1;
+  }
+
+  /* Scrollbar Styling */
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--bg-black);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--accent-cyan);
+  }
 </style>
