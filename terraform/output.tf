@@ -3,11 +3,6 @@ output "website_endpoint" {
   value       = aws_s3_bucket_website_configuration.static_site_config.website_endpoint
 }
 
-output "bucket_arn" {
-  description = "The ARN of the bucket"
-  value       = aws_s3_bucket.static_site_bucket.arn
-}
-
 output "bucket_name" {
   description = "The name of the bucket"
   value       = aws_s3_bucket.static_site_bucket.id
