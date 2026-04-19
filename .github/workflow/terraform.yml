@@ -1,0 +1,88 @@
+name: "Terraform ⚙️"
+
+on:
+  push:
+    branches: [ "master" ]
+    paths:
+      - 'terraform/**'      
+  pull_request:
+    branches: [ "master" ]
+    paths:
+      - 'terraform/**'   
+
+permissions:
+  id-token: write 
+  contents: read  
+  pull-requests: write 
+
+jobs:
+  terraform:
+    name: "Terraform Action"
+    runs-on: ubuntu-latest
+    env:
+      AWS_REGION: "eu-central-1" 
+      AWS_ROLE_IAM_ARN: "arn:aws:iam::718286622836:role/github-aws-exitcode-one"
+    
+    defaults:
+      run:
+        working-directory: ./terraform
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ env.AWS_ROLE_IAM_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_wrapper: true 
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Format Check
+        run: terraform fmt -check
+
+      - name: Terraform Plan
+        id: plan
+        if: github.event_name == 'pull_request'
+        run: terraform plan -no-color -out=tfplan
+
+      - name: Setup tf-summarize
+        if: github.event_name == 'pull_request'
+        uses: kishaningithub/setup-tf-summarize@v2
+
+      - name: Summarize Plan
+        id: summarize
+        if: github.event_name == 'pull_request'
+        run: |
+          tf-summarize -md tfplan > summary.md
+          # Використовуємо GITHUB_ENV для передачі таблиці в наступний крок
+          echo "SUMMARY_TABLE<<EOF" >> $GITHUB_ENV
+          cat summary.md >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: Post Plan to PR
+        if: github.event_name == 'pull_request'
+        uses: mshick/add-pr-comment@v2
+        with:
+          message: |
+            ### Terraform Plan Summary 🚀
+            ${{ env.SUMMARY_TABLE }}
+            
+            <details><summary>Show Full Plan</summary>
+            
+            ```terraform
+            ${{ steps.plan.outputs.stdout }}
+            ```
+            
+            </details>
+
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        run: terraform apply -auto-approve
