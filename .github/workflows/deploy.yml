@@ -1,4 +1,4 @@
-name: "Deploy Static Site (Astro)"
+name: "Deploy Static Site 🔩"
 
 on:
   push:
