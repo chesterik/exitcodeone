@@ -1,8 +1,8 @@
 terraform {
   backend "s3" {
-    bucket = "exitcodeone-state"
-    key    = "website-state"
-    region = "eu-central-1"
+    bucket       = "exitcodeone-state"
+    key          = "website-state"
+    region       = "eu-central-1"
     use_lockfile = true
   }
 
@@ -20,7 +20,7 @@ provider "aws" {
 
 resource "aws_s3_bucket" "static_site_bucket" {
   bucket = var.static_site_bucket_name
-  
+
   tags = {
     Name        = "Website"
     Environment = "Prod"
@@ -46,7 +46,7 @@ resource "aws_s3_bucket_public_access_block" "static_site_access" {
 
 resource "aws_s3_bucket_policy" "public_read_policy" {
   depends_on = [aws_s3_bucket_public_access_block.static_site_access]
-  
+
   bucket = aws_s3_bucket.static_site_bucket.id
 
   policy = jsonencode({
